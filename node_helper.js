@@ -36,10 +36,13 @@ var gauth;
 
 
 function getGoogleTasks(gauth) {
+
+  console.log("Updating google tasks")
+  console.log(gauth)
   var service = google.tasks('v1');
   var oldItems = 'None';
   service.tasks.list({
-    gauth: gauth,
+    auth: gauth,
     tasklist: '@default',
     maxResults: 10,
   }, function(err, response) {
