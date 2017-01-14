@@ -28,41 +28,41 @@ var SCOPES = ['https://www.googleapis.com/auth/tasks.readonly'];
 
 
 var TOKEN_DIR = 'modules/MMM-gtasks/'
-var TOKEN_PATH = TOKEN_DIR + 'client_secret.json'
+var TOKEN_PATH = TOKEN_DIR + 'gtasks_token.json'
 
 var gauth;
 
 
-        function getGoogleTasks(gauth) {
-          var service = google.tasks('v1');
-          var oldItems = 'None';
-          service.tasks.list({
-            gauth: gauth,
-            tasklist: '@default',
-            maxResults: 10,
-          }, function(err, response) {
-            if (err) {
-              console.log('The API returned an error: ' + err);
-              return;
-            }
-            var items = response.items;
-            if (items.length == 0) {
-              console.log('No tasks found.');
-            };
-            if (items === oldItems) {
-              console.log('No change in google tasks.');
-            } else {
-              console.log('New google tasks obtained:');
-              listOfTasks = [];
-              for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                listOfTasks.push(item.title);
-              }
-              this.listOfTasks = listOfTasks;
-              oldItems = items;
-            }
-          });
-        }
+function getGoogleTasks(gauth) {
+  var service = google.tasks('v1');
+  var oldItems = 'None';
+  service.tasks.list({
+    gauth: gauth,
+    tasklist: '@default',
+    maxResults: 10,
+  }, function(err, response) {
+    if (err) {
+      console.log('The API returned an error: ' + err);
+      return;
+    }
+    var items = response.items;
+    if (items.length == 0) {
+      console.log('No tasks found.');
+    };
+    if (items === oldItems) {
+      console.log('No change in google tasks.');
+    } else {
+      console.log('New google tasks obtained:');
+      listOfTasks = [];
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        listOfTasks.push(item.title);
+      }
+      this.listOfTasks = listOfTasks;
+      oldItems = items;
+    }
+  });
+};
 
 module.exports = NodeHelper.create({
 
@@ -75,27 +75,6 @@ Also show a need for this on the mirror.
       console.log("Starting node helper for: " + this.name);
 
 
-        fs.readdir(TOKEN_DIR, (err, files) => {
-            files.forEach(file => {
-               console.log(file);
-            });
-         })
-   
-
-        // Load client secrets from a local file.
-        fs.readFile(TOKEN_PATH, function processClientSecrets(err, content) {
-                  this.content = content;
-                  if (err) {
-                    console.log('Error loading client secret file: ' + err);
-                    console.log('Go to the following address for a guide to get a google secret file')
-                    console.log('https://developers.google.com/google-apps/tasks/quickstart/nodejs#step_1_turn_on_the_api_name')
-                    return;
-                  }
-                  // Authorize a client with the loaded credentials, then call the
-                  // Google Tasks API.
-                  authorize(JSON.parse(content), getGoogleTasks);
-                });
-
         /**
          * Create an OAuth2 client with the given credentials, and then execute the
          * given callback function.
@@ -104,22 +83,28 @@ Also show a need for this on the mirror.
          * @param {function} callback The callback to call with the authorized client.
          */
         function authorize(credentials, callback) {
+          console.log("Authorizing credentials")
           var clientSecret = credentials.installed.client_secret;
           var clientId = credentials.installed.client_id;
           var redirectUrl = credentials.installed.redirect_uris[0];
+          console.log("Creating new authorisation")
           gauth = new googleAuth();
           var oauth2Client = new gauth.OAuth2(clientId, clientSecret, redirectUrl);
 
           // Check if we have previously stored a token.
           fs.readFile(TOKEN_PATH, function(err, token) {
+            console.log("Checking for token at: " + TOKEN_PATH)
             if (err) {
+              console.log("No token found")
               getNewToken(oauth2Client, callback);
             } else {
+              console.log("Token found.")
               oauth2Client.credentials = JSON.parse(token);
               callback(oauth2Client);
             }
           });
-        }
+        };
+
 
         /**
          * Get and store new token after prompting for user authorization, and then
@@ -151,7 +136,7 @@ Also show a need for this on the mirror.
               callback(oauth2Client);
             });
           });
-        }
+        };
 
         /**
          * Store token to disk be used in later program executions.
@@ -169,6 +154,19 @@ Also show a need for this on the mirror.
           fs.writeFile(TOKEN_PATH, JSON.stringify(token));
           console.log('Token stored to ' + TOKEN_PATH);
         }
+        // Load client secrets from a local file.
+        fs.readFile(TOKEN_PATH, function processClientSecrets(err, content) {
+                  this.content = content;
+                  if (err) {
+                    console.log('Error loading client secret file: ' + err);
+                    console.log('Go to the following address for a guide to get a google secret file')
+                    console.log('https://developers.google.com/google-apps/tasks/quickstart/nodejs#step_1_turn_on_the_api_name')
+                    return;
+                  }
+                  // Authorize a client with the loaded credentials, then call the
+                  // Google Tasks API.
+                  authorize(JSON.parse(content), getGoogleTasks);
+                });
 
    },
        
@@ -178,7 +176,7 @@ This function is caled when a socket request to update the task list is given
    socketNotificationReceived: function(notification, payload) {
       if (notification === "get_google_tasks") {
 
-        getGoogleTasks(gauth);
+       getGoogleTasks(gauth);
 
 
        this.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
