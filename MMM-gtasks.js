@@ -11,13 +11,13 @@ Module.register("gtasks",{
 
 	// Default module config.
 	defaults: {
-      name: "gtasks",
+      name: "MMM-gtasks",
 		text: "Some tasks",
    
 	},
 
    getStyles: function() {
-      return ["gtasks.css", "font-awesome.css"];
+      return ["MMM-gtasks.css", "font-awesome.css"];
    },
 
    start: function() {
