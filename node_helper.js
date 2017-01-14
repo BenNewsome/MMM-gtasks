@@ -27,8 +27,10 @@ var SCOPES = ['https://www.googleapis.com/auth/tasks.readonly'];
 //       var TOKEN_PATH = TOKEN_DIR + 'tasks-nodejs-quickstart.json';
 
 
+// Specify the locations of the client_secret downloaded and where to store the secret token
 var TOKEN_DIR = 'modules/MMM-gtasks/'
 var TOKEN_PATH = TOKEN_DIR + 'gtasks_token.json'
+var CLIENT_SECRET = TOKEN_DIR + 'client_secret.json'
 
 var gauth;
 
@@ -155,7 +157,7 @@ Also show a need for this on the mirror.
           console.log('Token stored to ' + TOKEN_PATH);
         }
         // Load client secrets from a local file.
-        fs.readFile(TOKEN_PATH, function processClientSecrets(err, content) {
+        fs.readFile(CLIENT_SECRET, function processClientSecrets(err, content) {
                   this.content = content;
                   if (err) {
                     console.log('Error loading client secret file: ' + err);
