@@ -12,7 +12,7 @@ This is an extetion fro MagicMirror. It shows your google tasks from your defaul
 
 To use this module, add this to the modules array in the config/config.js
 
-'''javascript
+```javascript
       {
          module: 'gtasks',
          header: 'To Do',
@@ -20,8 +20,8 @@ To use this module, add this to the modules array in the config/config.js
          config: {
             // See 'Configuration options' for more information. 
             text: 'To do not loaded yet'
-         }
-'''
+         },
+```
 
 
 #Configuration options
