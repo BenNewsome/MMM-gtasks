@@ -1,0 +1,23 @@
+
+.todotitle {
+   padding-top: -20px;
+   font-size: 100%;
+}
+
+.gtask .title {
+   padding-top: -20px;
+   font-size: 100%;
+}
+.gtask .task {
+   font-size: 80%;
+   text-align: left;
+   float: left;
+}
+.gtask .tasklist {
+   font-size: 80%;
+   float: left;
+}
+.todotask {
+   font-size: 80%;
+   float: left;
+}
