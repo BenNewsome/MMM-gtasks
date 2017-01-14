@@ -7,7 +7,7 @@
  * MIT Licensed.
  */
 
-Module.register("gtasks",{
+Module.register("MMM-gtasks",{
 
 	// Default module config.
 	defaults: {
