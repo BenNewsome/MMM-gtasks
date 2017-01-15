@@ -48,29 +48,19 @@ Module.register("MMM-gtasks",{
 
 
    // Start the updater on socket request.
-//   socketNotificationReceived: function(notification, payload) {
-//      if ( notification === "GOOGLE_TASKS") {
-//         var self = this;
-//
+   socketNotificationReceived: function(notification, payload) {
+      if ( notification === "GOOGLE_TASKS") {
+
 //         if (!this.loaded) {
 //            this.schedualUpdateInterval();
 //         }
-//
+
 //         this.loaded=true;
-//      }
-//   },
 
-   // Create the periodic updater.
-   schedualUpdateInterval: function() {
-      var self = this;
+         this.updateDom();
+      }
+   },
 
- //     self.updateDom();
-   
-      setInterval(function() {
-         console.log("Updating MMM-gtasks");
-         self.updateDom();
-         }, 5000);
-      },
 
 	// Override dom generator.
 	getDom: function() {

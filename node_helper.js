@@ -19,19 +19,42 @@ Also show a need for this on the mirror.
       var googleTasks = new GoogleTasks;
       var SECRET_FOLDER = "./modules/MMM-gtasks/";
 
+
+
+      function startUpdater() {
+         setInterval(function() {
+           console.log("Updating MMM-gtasks");
+//           this.sendSocketNotification("GOOGLE_TASKS", this.listOfTasks);
+            },5000);
+         }
+
       function storeGAuth(gauth) {
          console.log("Obtained gauth:");
          console.log(gauth);
-//         this.gauth = gauth;
-//         this.schedualUpdateInterval();
+         this.gauth = gauth;
+         startUpdater();
       };
-//
       googleTasks.getGoogleAuth(SECRET_FOLDER, storeGAuth);
+
+
     
 
 
 
       },
+
+   // Create the periodic updater.
+//   schedualUpdateInterval: function() {
+//      var self = this;
+
+ //     self.updateDom();
+
+//      setInterval(function() {
+//         console.log("Updating MMM-gtasks");
+//         this.sendSocketNotification("GOOGLE_TASKS", this.listOfTasks);
+//         }, 5000);
+//      },
+
 
 
 /**
@@ -40,12 +63,18 @@ This function is caled when a socket request to update the task list is given
    socketNotificationReceived: function(notification, payload) {
 //      var self = this;
       if (notification === "update-MMM-gtasks") {
-      
 
-        var listOfTasks = [ 
-         { title: 'Task 1', status: 'needsAction'},
-         { title: 'Task 2', status: 'needsAction'},
-         ];
+        if (!this.loaded) {
+
+            this.schedualUpdateInterval();
+            console.log("Started periodic updater for gtasks");
+         }
+
+           var listOfTasks = [ 
+            { title: 'Task 1', status: 'needsAction'},
+            { title: 'Task 2', status: 'needsAction'},
+            ];
+      
          
         this.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
 //        this.updateDOM(3000);
@@ -56,14 +85,3 @@ This function is caled when a socket request to update the task list is given
 
 });
 
-/*
-   processTaskList: function(listOfTasks) {
-      var outputText = "<p id='todotitle'> To Do </p>";
-      for (var i=0; i < listOfTasks.length; i++) {
-         newLine = "<p id='todotask'>" + listOfTasks[i] + "</p>";
-         outputText += newLine;
-      }
-
-      return outputText;
-   },
-*/
