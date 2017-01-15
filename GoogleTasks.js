@@ -145,26 +145,27 @@ GoogleTasks.prototype.updateTasks = function(gauth, callback) {
       console.log('No tasks found.');
     } else {
       console.log('Tasks:');
-      for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        console.log(item);
-      }
-      callback(items);
-   }
-//    if (items === oldItems) {
-//      console.log('No change in google tasks.');
-//    } else {
-//      console.log('New google tasks obtained:');
 //      for (var i = 0; i < items.length; i++) {
 //        var item = items[i];
-//        listOfTasks.push(item.title);
+//        console.log(item);
 //      }
-//      this.listOfTasks = listOfTasks;
-//      oldItems = items;
-//    }
-//    console.log(listOfTasks)
-//    return
+      callback(items);
+   }
   });
 };
+
+GoogleTasks.prototype.formatTasks = function(items) {
+
+   output = [];
+
+   for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var formattedItem = {title:item.title, status:item.status};
+      output.push(formattedItem)
+      }
+
+   return output;
+};
+
 
 module.exports = GoogleTasks;
