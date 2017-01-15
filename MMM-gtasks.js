@@ -44,12 +44,18 @@ Module.register("MMM-gtasks",{
 //
 //      GoogleTasks.getGoogleAuth(SECRET_FOLDER, storeGAuth);
       
+
+      this.sendSocketNotification("GOOGLE_TASKS", "Start updater");
    },
 
 
-   // Start the updater on socket request.
+   // Overide default socket recived notifiaciton.
    socketNotificationReceived: function(notification, payload) {
       if ( notification === "GOOGLE_TASKS") {
+         console.log("Recived socekt notification with payload:");
+         console.log(payload);
+
+         this.listOfTasks = payload;
 
 //         if (!this.loaded) {
 //            this.schedualUpdateInterval();
@@ -57,13 +63,19 @@ Module.register("MMM-gtasks",{
 
 //         this.loaded=true;
 
-         this.updateDom();
+         this.updateDom(1000);
       }
    },
 
 
 	// Override dom generator.
 	getDom: function() {
+      console.log("Updating DOM");
+      if (this.listOfTasks == undefined) {
+         console.log("Recived undefined listOfTasks");
+         this.listOfTasks = [{title: 'Loading', status: 'needsAction'}];
+      };
+      console.log(this.listOfTasks);
       var wrapper = document.createElement("div");
       var table = document.createElement("table");
       table.className = "gtask small";
@@ -74,12 +86,12 @@ Module.register("MMM-gtasks",{
 
          var task = document.createElement("td");
          task.className = "task";
-         if (this.listOfTasks[i].status=='needsAction') {
+         if (taskItem.status=='needsAction') {
             statusHTML = "&#9744 "
          } else {
             statusHTML = ""
          };
-         taskTitleHTML = this.listOfTasks[i].title;
+         taskTitleHTML = taskItem.title;
          task.innerHTML = statusHTML + taskTitleHTML;
          row.appendChild(task);
       }

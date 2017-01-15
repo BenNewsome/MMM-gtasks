@@ -11,74 +11,73 @@ The start function is what is called initialy. This is where the authorisation s
 This should check for authorisation. If none found, show a link in the console to it.
 Also show a need for this on the mirror.
 **/
+
+
    start: function() {
       console.log("Starting node helper for: " + this.name);
       this.loaded = false;
-      this.listOfTasks = [{title: 'Loading...', status: 'needaAction'}];
       var SECRET_FOLDER = "./modules/MMM-gtasks/";
       var googleTasks = new GoogleTasks;
       var SECRET_FOLDER = "./modules/MMM-gtasks/";
 
+      var self = this;
+
+//      console.log("Default list of tasks:")
+//      console.log(this.listOfTasks)
 
 
-      function startUpdater() {
-         setInterval(function() {
-           console.log("Updating MMM-gtasks");
-//           this.sendSocketNotification("GOOGLE_TASKS", this.listOfTasks);
-            },5000);
-         }
+//      googleTasks.listOfTasks = listOfTasks;
+
+
+
 
       function storeGAuth(gauth) {
          console.log("Obtained gauth:");
          console.log(gauth);
-         this.gauth = gauth;
-         startUpdater();
+         googleTasks.gauth = gauth;
+         this.gauth = gauth
+//         startUpdater();
       };
       googleTasks.getGoogleAuth(SECRET_FOLDER, storeGAuth);
 
-
-    
-
-
-
       },
-
-   // Create the periodic updater.
-//   schedualUpdateInterval: function() {
-//      var self = this;
-
- //     self.updateDom();
-
-//      setInterval(function() {
-//         console.log("Updating MMM-gtasks");
-//         this.sendSocketNotification("GOOGLE_TASKS", this.listOfTasks);
-//         }, 5000);
-//      },
-
 
 
 /**
 This function is caled when a socket request to update the task list is given
 **/   
    socketNotificationReceived: function(notification, payload) {
-//      var self = this;
-      if (notification === "update-MMM-gtasks") {
+      var self = this;
+      if (notification === "GOOGLE_TASKS") {
+         if (payload === "Start updater") {
+            console.log("Recived socket notification to start the updater");
 
-        if (!this.loaded) {
+              if (!this.loaded) {
+                 var listOfTasks = [{title: 'Loading...', status: 'needaAction'}];
+                 setInterval(function() {
+                   console.log("Updating MMM-gtasks");
+                   console.log(this.gauth);
 
-            this.schedualUpdateInterval();
-            console.log("Started periodic updater for gtasks");
+                   console.log("Sending the following");
+                   console.log(listOfTasks);
+                   self.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
+                   },5000);
+                 this.loaded=true;
+                 console.log("Started periodic updater for gtasks");
+                 }
+
          }
+      }
 
-           var listOfTasks = [ 
-            { title: 'Task 1', status: 'needsAction'},
-            { title: 'Task 2', status: 'needsAction'},
-            ];
+//           var listOfTasks = [ 
+//            { title: 'Task 1', status: 'needsAction'},
+//            { title: 'Task 2', status: 'needsAction'},
+//            ];
       
          
-        this.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
+//        this.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
 //        this.updateDOM(3000);
-        };
+//        };
       },
 
    
