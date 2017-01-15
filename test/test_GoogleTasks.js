@@ -57,4 +57,25 @@ describe('getTasks', function() {
    });
 });
 
+describe('processTasks', function() {
+   it('Testing processing of tasks', function() {
+      var googleTasks = new GoogleTasks;
+
+      var rawTasks = [
+         { kind: 'tasks#task',
+           title: 'Send out sport diver asking about interest.',
+           updated: '2017-01-10T19:41:38.000Z',
+           status: 'needsAction' },
+         { kind: 'tasks#task',
+           title: 'Visit santander about student account.',
+           updated: '2017-01-10T15:27:31.000Z',
+           status: 'needsAction' } 
+     ];
+
+      var output = googleTasks.formatTasks(rawTasks);
+      console.log("Formatted tasks output:");
+      console.log(output);
+   });
+});
    
+
