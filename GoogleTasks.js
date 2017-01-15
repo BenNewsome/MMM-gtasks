@@ -1,7 +1,7 @@
 
 
 
-var NodeHelper = require("node_helper");
+//var NodeHelper = require("node_helper");
 
 var fs = require('fs');
 var readline = require('readline');
@@ -30,29 +30,20 @@ GoogleTasks.prototype.getGoogleAuth = function(TOKEN_DIR, callback) {
         //var TOKEN_DIR = 'modules/MMM-gtasks/'
         var TOKEN_PATH = TOKEN_DIR + 'gtasks_token.json'
         var CLIENT_SECRET = TOKEN_DIR + 'client_secret.json'
-        console.log("CLIENT_SECRET_PATH: " + CLIENT_SECRET);
-
         function authorize(credentials, callback) {
-          console.log("Authorize called")
           var clientSecret = credentials.installed.client_secret;
           var clientId = credentials.installed.client_id;
           var redirectUrl = credentials.installed.redirect_uris[0];
-          console.log("Creating new authorisation")
           gauth = new googleAuth();
           var oauth2Client = new gauth.OAuth2(clientId, clientSecret, redirectUrl);
 
           // Check if we have previously stored a token.
-          console.log("Checking for token at: " + TOKEN_PATH);
           fs.readFile(TOKEN_PATH, function(err, token) {
             if (err) {
-              console.log("No token found")
+              console.log("No token found at: " + TOKEN_PATH);
               getNewToken(oauth2Client, callback);
             } else {
-              console.log("Token found.")
               oauth2Client.credentials = JSON.parse(token);
-              // Return the google Auth
-              //GoogleTasks.gauth = oauth2Client;
-              console.log("gauth inisilized")
               callback(oauth2Client);
             }
           });
@@ -100,7 +91,6 @@ GoogleTasks.prototype.getGoogleAuth = function(TOKEN_DIR, callback) {
         }
         // Load client secrets from a local file.
 
-        console.log("About to read the client secret");
         fs.readFile(CLIENT_SECRET, function processClientSecrets(err, content) {
                   this.content = content;
                   if (err) {
@@ -118,7 +108,6 @@ GoogleTasks.prototype.getGoogleAuth = function(TOKEN_DIR, callback) {
                   }
                   // Authorize a client with the loaded credentials, then call the
                   // Google Tasks API.
-                  console.log("Calling authorize");
                   authorize(JSON.parse(content), callback);
                 });
 
@@ -128,7 +117,6 @@ GoogleTasks.prototype.updateTasks = function(gauth, callback) {
 
   var listOfTasks = [];
 
-  console.log("Updating google tasks")
   var service = google.tasks('v1');
   var oldItems = 'None';
   service.tasks.list({
@@ -144,11 +132,6 @@ GoogleTasks.prototype.updateTasks = function(gauth, callback) {
     if (items.length == 0) {
       console.log('No tasks found.');
     } else {
-      console.log('Tasks:');
-//      for (var i = 0; i < items.length; i++) {
-//        var item = items[i];
-//        console.log(item);
-//      }
       callback(items);
    }
   });
