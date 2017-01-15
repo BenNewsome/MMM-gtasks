@@ -82,8 +82,9 @@ This function is caled when a socket request to update the task list is given
 //                 var listOfTasks = self.listOfTasks;
 //                 var listOfTasks = this.googleTasks.listOfTasks;
 //                 this.listOfTasks = [{title: 'Loading...', status: 'needaAction'}];
-                 this.googleTasks.updateTasks(gauth, processTasks );
+                 var gtasks = this.googleTasks;
                  setInterval(function() {
+                   gtasks.updateTasks(gauth, processTasks );
                    console.log("Periodic update");
                    },5000);
                  this.loaded=true;
