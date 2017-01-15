@@ -23,21 +23,9 @@ Also show a need for this on the mirror.
 
       var self = this;
 
-//      console.log("Default list of tasks:")
-//      console.log(this.listOfTasks)
-
-
-//      googleTasks.listOfTasks = listOfTasks;
-
-
-
-
       function storeGAuth(gauth) {
-         console.log("Obtained gauth:");
-         console.log(gauth);
          googleTasks.gauth = gauth;
          this.gauth = gauth
-//         startUpdater();
       };
       googleTasks.getGoogleAuth(SECRET_FOLDER, storeGAuth);
 
@@ -78,7 +66,6 @@ This function is caled when a socket request to update the task list is given
 
                  setInterval(function() {
                    gtasks.updateTasks(gauth, processTasks );
-                   console.log("Periodic update");
                    },5*60*1000);
                  this.loaded=true;
                  console.log("Started periodic updater for gtasks");
