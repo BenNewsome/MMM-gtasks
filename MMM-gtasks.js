@@ -22,60 +22,57 @@ Module.register("MMM-gtasks",{
 
    start: function() {
       Log.info("Starting module: " + this.name);
+//      this.sendSocketNotification("update-MMM-gtasks", "Initial_update");
 
-      var tasks = "defaultTasks";
-      this.tasks = tasks;
-
-      var listOfTasks = ["Loading tasks....."];
-      this.listOfTasks = listOfTasks;
-
-      this.sendSocketNotification("get_google_tasks", "hi");
-
-      var self = this;
-      setInterval(function() {
-         self.updateDom(500); 
-      }, 10000);
-
-
+      this.loaded = false;
+      this.listOfTasks = [{title: 'Loading...', status: 'needaAction'}];
+      
    },
 
-
+   // Start the updater on socket request.
    socketNotificationReceived: function(notification, payload) {
       if ( notification === "GOOGLE_TASKS") {
-
-
          var self = this;
-         var listOfTasks = payload;
-         this.listOfTasks = listOfTasks;
-      };
+
+         if (!this.loaded) {
+            this.schedualUpdateInterval();
+         }
+
+         this.loaded=true;
+      }
    },
+
+   schedualUpdateInterval: function() {
+      var self = this;
+
+      self.updateDom();
+   
+      setInterval(function() {
+         self.updateDom();
+         }, 5000);
+      },
 
 	// Override dom generator.
 	getDom: function() {
-
-
-     this.sendSocketNotification("get_google_tasks", "hi");
-
-     listOfTasks = this.listOfTasks;
-
+      console.log("Updating tasks");
       var wrapper = document.createElement("div");
-
-
-//      var title = document.createElement("div"); 
- //     title.className = "title";
-//      title.innerHTML = "To do";
-//      wrapper.appendChild(title);
 
       var table = document.createElement("table");
       table.className = "gtask small";
-      for (var i=0; i < listOfTasks.length; i++) {
+      for (var i=0; i < this.listOfTasks.length; i++) {
          var row = document.createElement("tr");
          table.appendChild(row)
 
          var task = document.createElement("td");
          task.className = "task";
-         task.innerHTML = "&#9744 " + this.listOfTasks[i];
-         //task.innerHTML = this.listOfTasks[i];
+         if (this.listOfTasks[i].status=='needsAction') {
+            statusHTML = "&#9744 "
+         } else {
+            statusHTML = ""
+         };
+         taskTitleHTML = this.listOfTasks[i].title;
+         task.innerHTML = statusHTML + taskTitleHTML;
+         console.log(task.innerHTML);
          row.appendChild(task);
       }
       wrapper.appendChild(table);
