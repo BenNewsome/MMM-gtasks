@@ -52,9 +52,6 @@ This function is caled when a socket request to update the task list is given
       var self = this;
       var gauth = this.googleTasks.gauth;
       function processTasks(rawTasks) {
-//         console.log("Processing the following raw tasks:")
-//         console.log(rawTasks);
-//         this.listOfTasks = this.googleTasks.formatTasks(rawTasks);
          var output = [];
       
          for (var i = 0; i < rawTasks.length; i++) {
@@ -65,28 +62,24 @@ This function is caled when a socket request to update the task list is given
 
          var listOfTasks = output
 
-         console.log("Updating MMM-gtasks");
-         console.log(gauth);
-         console.log("Sending the following");
-         console.log(listOfTasks);
+         console.log("List of tasks updated");
 
          self.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
       };
 
       if (notification === "GOOGLE_TASKS") {
          if (payload === "Start updater") {
-            console.log("Recived socket notification to start the updater");
 
               if (!this.loaded) {
-//                 var listOfTasks = this.googleTasks.listOfTasks;
-//                 var listOfTasks = self.listOfTasks;
-//                 var listOfTasks = this.googleTasks.listOfTasks;
-//                 this.listOfTasks = [{title: 'Loading...', status: 'needaAction'}];
                  var gtasks = this.googleTasks;
+
+                 //Run now so we dont have to wait for the updater.
+                 gtasks.updateTasks(gauth, processTasks);
+
                  setInterval(function() {
                    gtasks.updateTasks(gauth, processTasks );
                    console.log("Periodic update");
-                   },5000);
+                   },5*60*1000);
                  this.loaded=true;
                  console.log("Started periodic updater for gtasks");
                  }
@@ -94,15 +87,6 @@ This function is caled when a socket request to update the task list is given
          }
       }
 
-//           var listOfTasks = [ 
-//            { title: 'Task 1', status: 'needsAction'},
-//            { title: 'Task 2', status: 'needsAction'},
-//            ];
-      
-         
-//        this.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
-//        this.updateDOM(3000);
-//        };
       },
 
    
