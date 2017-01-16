@@ -89,7 +89,7 @@ Module.register("MMM-gtasks",{
          if (taskItem.status=='needsAction') {
             statusHTML = "&#9744 "
          } else {
-            statusHTML = ""
+            statusHTML = "&#9745 "
          };
          taskTitleHTML = taskItem.title;
          task.innerHTML = statusHTML + taskTitleHTML;
