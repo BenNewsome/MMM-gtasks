@@ -1,6 +1,6 @@
 # MMM_gtasks
 
-This is an extetion fro MagicMirror. It shows your google tasks from your default calendar.
+This is an extetion for [MagicMirror](https://magicmirror.builders/). It shows your google tasks from your default calendar.
 
 Warning: This is my first attempt at using node.js. I could be passing your google tasks credentials about the network in plaintext, so anyone on your local network could see a read-only copy of your google tasks. If you have your secret plans for world domination on your google to-do list, I would advise against the use of this module.
 
