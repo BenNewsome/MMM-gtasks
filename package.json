@@ -1,0 +1,27 @@
+{
+  "name": "mmm-gtasks",
+  "version": "0.1.0",
+  "description": "MagicMirror module to display gtasks",
+  "main": "gtasks.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenNewsome/MMM-gtasks.git"
+  },
+  "author": "Ben Newsome",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BenNewsome/MMM-gtasks/issues"
+  },
+  "homepage": "https://github.com/BenNewsome/MMM-gtasks#readme",
+  "dependencies": {
+    "googleapis": "^16.1.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "directories": {
+    "test": "tests"
+  }
+}
