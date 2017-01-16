@@ -19,9 +19,12 @@
   "dependencies": {
     "googleapis": "^16.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha":"^3.2.0",
+    "chai":"^3.5.0"
+  },
   "keywords": [],
   "directories": {
-    "test": "tests"
+    "test": "test"
   }
 }
