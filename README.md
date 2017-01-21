@@ -55,15 +55,15 @@ The following can be configured
 <tbody>
 <tr>
 <td>brightness</td><td> Choose the text brightness from 1 - 15 (Hexadecimal with 0 being black). (Default = 13)<\td>
-<\tr><\tr>
+<\tr><tr>
 <td>taskNumber</td><td> Number of tasks to get from google. (Default=10)<\td>
-<\tr><\tr>
+<\tr><tr>
 <td>taskMaxLength</td><td>Number of charicters you want to use before truncating. (Default = 50)<\td>
-<\tr><\tr>
+<\tr><tr>
 <td>updateFrequency</td><td>The number of seconds between checks for updates. (Default = 300)<\td>
-<\tr><\tr>
+<\tr><tr>
 <td>taskList</td><td> Choose the google tasks list you want to get. The default list is called "@default" UNTESTED!<\td>
-<\tr><\tr>
+<\tr><tr>
 <td>debug</td><td> Choose if you want to litter the console with messages. (Default = false)<\td>
 <\tr>
 <\tbody>
