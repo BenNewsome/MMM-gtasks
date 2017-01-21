@@ -50,7 +50,7 @@ This function is caled when a socket request to update the task list is given
 
          var listOfTasks = output
 
-         if (payload.message.config.debug) {
+         if (payload.config.debug) {
             console.log("List of tasks updated");
          };
 
@@ -70,7 +70,7 @@ This function is caled when a socket request to update the task list is given
                    gtasks.updateTasks(gauth, processTasks );
                    },5*60*1000);
                  this.loaded=true;
-                 if (payload.message.config.debug) {
+                 if (payload.config.debug) {
                    console.log("Started periodic updater for gtasks");
                    };
                  }
