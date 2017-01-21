@@ -16,7 +16,7 @@ Module.register("MMM-gtasks",{
       name: "MMM-gtasks",
 		text: "Some tasks",
       updateFrequency: 300, //Time in seconds
-      textBrightness: 1, //Content brightness
+      brightness: 13, //Content brightness [1-15]
       tasksNumber: 5, //Number of tasks to display
       taskMaxLength: 50, // Maximum number of charicters of the task to display
       taskList: "@default", // The name of the google tasks list to display
@@ -56,6 +56,7 @@ Module.register("MMM-gtasks",{
       
 
       this.sendSocketNotification("GOOGLE_TASKS", payload);
+      if (this.config.debug) {console.log("Sending message to helper")}
    },
 
 
@@ -96,13 +97,25 @@ Module.register("MMM-gtasks",{
       var wrapper = document.createElement("div");
       var table = document.createElement("table");
       table.className = "gtask small";
+
+
+      // Set the brightness      
+      var brightness = this.config.brightness;
+      if (brightness < 1) {brightness = 1}
+      if (brightness > 15) {brightness = 15}
+      var taskBrightness = "#".concat( Array(4).join(brightness.toString(16)) );
+
+//      var taskBrightness = "#444";
+
+
       for (var i=0; i < this.listOfTasks.length; i++) {
          taskItem = this.listOfTasks[i];
          var row = document.createElement("tr");
          table.appendChild(row)
 
          var task = document.createElement("td");
-//         task.className = "task";
+         task.style = "task";
+         task.style.color = taskBrightness;
 //         if (taskItem.status=='needsAction') {
 //            statusHTML = "&#9744 "
 //         } else {
