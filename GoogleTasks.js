@@ -137,18 +137,5 @@ GoogleTasks.prototype.updateTasks = function(gauth, callback) {
   });
 };
 
-GoogleTasks.prototype.formatTasks = function(items) {
-
-   output = [];
-
-   for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      var formattedItem = {title:item.title, status:item.status};
-      output.push(formattedItem)
-      }
-
-   return output;
-};
-
 
 module.exports = GoogleTasks;
