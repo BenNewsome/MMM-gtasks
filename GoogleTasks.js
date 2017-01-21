@@ -64,7 +64,8 @@ GoogleTasks.prototype.getGoogleAuth = function(TOKEN_DIR, callback) {
             oauth2Client.getToken(code, function(err, token) {
               if (err) {
                 console.log('Error while trying to retrieve access token', err);
-                return;
+                callback(err);
+//                return;
               }
               oauth2Client.credentials = token;
               storeToken(token);
@@ -127,6 +128,7 @@ GoogleTasks.prototype.updateTasks = function(tasksOptions, callback) {
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);
+      callback(err)
       return;
     }
     var items = response.items;
