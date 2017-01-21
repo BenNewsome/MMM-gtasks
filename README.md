@@ -10,14 +10,15 @@ Warning: This is my first attempt at using node.js. I could be passing your goog
 
 2. Download the module.
       `cd modules && git clone https://github.com/BenNewsome/MMM-gtasks`
+      
 3. Install the module and its dependencies.
-      `cd MMM-gtasks && npm install'
+      `cd MMM-gtasks && npm install`
 4. Download your client_secret.json file by following the guide linked below.
       Once downloaded make sure it has the name client_secret.json and is in the MMM-gtasks folder.
 4. Add the module in your MagicMirror/config/config.js
 5. Navigate again to your MagicMirror directory.
 6. Run the mirror in server only mode with the command below. You will be presented with a link. Follow the link and google will provide you with a string of text. Copy and paste that into the console. 
-      'node serveronly'
+      `node serveronly`
 7. Everything should be installed and you can run with npm start now.
 
 # Troubleshooting
