@@ -1,7 +1,4 @@
-
-
 var NodeHelper = require("node_helper");
-
 var GoogleTasks = require("./GoogleTasks.js");
 
 module.exports = NodeHelper.create({
@@ -11,8 +8,6 @@ The start function is what is called initialy. This is where the authorisation s
 This should check for authorisation. If none found, show a link in the console to it.
 Also show a need for this on the mirror.
 **/
-
-
    start: function() {
       console.log("Starting node helper for: " + this.name);
       this.loaded = false;
@@ -28,8 +23,7 @@ Also show a need for this on the mirror.
          this.gauth = gauth
       };
       googleTasks.getGoogleAuth(SECRET_FOLDER, storeGAuth);
-
-      },
+   },
 
 
 /**
@@ -40,11 +34,9 @@ This function is caled when a socket request to update the task list is given
       var self = this;
       var gauth = this.googleTasks.gauth;
 
-
       function processTasks(rawTasks) {
          var listOfTasks = [];
          for (var i = 0; i < rawTasks.length; i++) {
-//            var task = rawTasks[i].title;
             var task;
             var taskTitle = rawTasks[i].title
             // Shorten long strings
@@ -81,7 +73,7 @@ This function is caled when a socket request to update the task list is given
               gtasks.updateTasks(tasksOptions, processTasks);
               if (payload.config.debug) {
                   consile.log("Sent a task update on request")
-               }
+              }
 
               // If updater not loaded, start the updater.
               if (!this.loaded) {
@@ -92,14 +84,10 @@ This function is caled when a socket request to update the task list is given
                  if (payload.config.debug) {
                    console.log("Started periodic updater for gtasks");
                    };
-                 }
+              }
 
          }
       }
-
-      },
-
-   
-
+   },
 });
 
