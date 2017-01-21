@@ -48,13 +48,12 @@ This function is caled when a socket request to update the task list is given
             var task;
             var taskTitle = rawTasks[i].title
             // Shorten long strings
-            maxString = 100
+            var maxString = payload.config.taskMaxLength
             if (taskTitle.length > maxString) {
-               taskTitle = taskTitle.substring(1,maxString)
+               taskTitle = taskTitle.substring(1,maxString) + "..."
                }
-            
-         
 
+            // Add checkbox
             if (rawTasks[i].status=='needsAction'){
                task = "&#9744 " + taskTitle
             } else {
@@ -62,7 +61,7 @@ This function is caled when a socket request to update the task list is given
             };
 
             listOfTasks.push( task );
-            }
+         };
 
          if (payload.config.debug) {
             console.log("List of tasks updated");
