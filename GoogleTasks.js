@@ -121,10 +121,9 @@ GoogleTasks.prototype.updateTasks = function(tasksOptions, callback) {
   var oldItems = 'None';
   service.tasks.list({
     auth: tasksOptions.auth,
-    tasklist: '@default',
-//    tasklist: config.taskList,
-    maxResults: 10,
-//    maxResults: config.taskNumber,
+//    tasklist: '@default',
+    tasklist: tasksOptions.config.taskList,
+    maxResults: tasksOptions.config.tasksNumber,
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);

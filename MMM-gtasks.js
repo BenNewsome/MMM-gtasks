@@ -17,9 +17,9 @@ Module.register("MMM-gtasks",{
 		text: "Some tasks",
       updateFrequency: 300, //Time in seconds
       textBrightness: 1, //Content brightness
-      taskNumber: 10, //Number of tasks to display
+      tasksNumber: 5, //Number of tasks to display
       taskMaxLength: 100, // Maximum number of charicters of the task to display
-      taskList: "Default List", // The name of the google tasks list to display
+      taskList: "@default", // The name of the google tasks list to display
       debug: true, // Add debugging messages.
 
 
