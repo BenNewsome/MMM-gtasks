@@ -6,9 +6,22 @@ Warning: This is my first attempt at using node.js. I could be passing your goog
 
 # Installation
 
-1. Install it
-2. Create proper documentation
+1. Navigate to your MagicMirror directory.
 
+2. Download the module.
+      `cd modules && git clone https://github.com/BenNewsome/MMM-gtasks`
+3. Install the module and its dependencies.
+      `cd MMM-gtasks && npm install'
+4. Download your client_secret.json file by following the guide linked below.
+      Once downloaded make sure it has the name client_secret.json and is in the MMM-gtasks folder.
+4. Add the module in your MagicMirror/config/config.js
+5. Navigate again to your MagicMirror directory.
+6. Run the mirror in server only mode with the command below. You will be presented with a link. Follow the link and google will provide you with a string of text. Copy and paste that into the console. 
+      'node serveronly'
+7. Everything should be installed and you can run with npm start now.
+
+# Troubleshooting
+If you have any problems, consider adding  `debug: true` to the config and seeing what is displayed in the console with `node serveronly`. If it is not obvious raise a issue on github.
 
 # Using the module
 
@@ -33,7 +46,7 @@ To use this module, add this to the modules array in the config/config.js
 #Configuration options
 The following can be configured
 
-1. What list[s] to display
+1
 
 2. Only display uncopmpleted tasks
 
