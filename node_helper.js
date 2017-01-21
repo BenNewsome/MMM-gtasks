@@ -83,7 +83,7 @@ This function is caled when a socket request to update the task list is given
 
                  setInterval(function() {
                    gtasks.updateTasks(tasksOptions, processTasks );
-                   },5*60*1000);
+                   },payload.config.updateFrequency*1000);
                  this.loaded=true;
                  if (payload.config.debug) {
                    console.log("Started periodic updater for gtasks");
