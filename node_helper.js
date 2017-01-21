@@ -46,11 +46,19 @@ This function is caled when a socket request to update the task list is given
          for (var i = 0; i < rawTasks.length; i++) {
 //            var task = rawTasks[i].title;
             var task;
+            var taskTitle = rawTasks[i].title
+            // Shorten long strings
+            maxString = 100
+            if (taskTitle.length > maxString) {
+               taskTitle = taskTitle.substring(1,maxString)
+               }
+            
+         
 
             if (rawTasks[i].status=='needsAction'){
-               task = "&#9744 " + rawTasks[i].title
+               task = "&#9744 " + taskTitle
             } else {
-               task = "&#9745 " + rawTasks[i].title
+               task = "&#9745 " + taskTitle
             };
 
             listOfTasks.push( task );
