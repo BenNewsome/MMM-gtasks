@@ -113,16 +113,18 @@ GoogleTasks.prototype.getGoogleAuth = function(TOKEN_DIR, callback) {
 
    };
 
-GoogleTasks.prototype.updateTasks = function(gauth, callback) {
+GoogleTasks.prototype.updateTasks = function(tasksOptions, callback) {
 
   var listOfTasks = [];
 
   var service = google.tasks('v1');
   var oldItems = 'None';
   service.tasks.list({
-    auth: gauth,
+    auth: tasksOptions.auth,
     tasklist: '@default',
+//    tasklist: config.taskList,
     maxResults: 10,
+//    maxResults: config.taskNumber,
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);

@@ -63,11 +63,13 @@ This function is caled when a socket request to update the task list is given
               if (!this.loaded) {
                  var gtasks = this.googleTasks;
 
+
+                 var tasksOptions = {auth: gauth, config: payload.config}
                  //Run now so we dont have to wait for the updater.
-                 gtasks.updateTasks(gauth, processTasks);
+                 gtasks.updateTasks(tasksOptions, processTasks);
 
                  setInterval(function() {
-                   gtasks.updateTasks(gauth, processTasks );
+                   gtasks.updateTasks(tasksOptions, processTasks );
                    },5*60*1000);
                  this.loaded=true;
                  if (payload.config.debug) {
