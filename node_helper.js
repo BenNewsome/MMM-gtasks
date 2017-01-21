@@ -65,6 +65,7 @@ This function is caled when a socket request to update the task list is given
 
          if (payload.config.debug) {
             console.log("List of tasks updated");
+            console.log(listOfTasks);
          };
          self.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
       };
@@ -73,14 +74,17 @@ This function is caled when a socket request to update the task list is given
       if (notification === "GOOGLE_TASKS") {
          if (payload.message === "Start updater") {
 
+              var gtasks = this.googleTasks;
+              var tasksOptions = {auth: gauth, config: payload.config}
+
+              //Run now so we dont have to wait for the updater.
+              gtasks.updateTasks(tasksOptions, processTasks);
+              if (payload.config.debug) {
+                  consile.log("Sent a task update on request")
+               }
+
+              // If updater not loaded, start the updater.
               if (!this.loaded) {
-                 var gtasks = this.googleTasks;
-
-
-                 var tasksOptions = {auth: gauth, config: payload.config}
-                 //Run now so we dont have to wait for the updater.
-                 gtasks.updateTasks(tasksOptions, processTasks);
-
                  setInterval(function() {
                    gtasks.updateTasks(tasksOptions, processTasks );
                    },payload.config.updateFrequency*1000);
