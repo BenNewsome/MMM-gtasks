@@ -22,7 +22,7 @@ Warning: This is my first attempt at using node.js. I could be passing your goog
 7. Everything should be installed and you can run with npm start now.
 
 # Troubleshooting
-If you have any problems, consider adding  `debug: true` to the config and seeing what is displayed in the console with `node serveronly`. If it is not obvious raise a issue on github.
+If you have any problems, consider adding  `debug: true` to the config and seeing what is displayed in the console with `node serveronly`. If it is not obvious raise an issue on github.
 
 # Using the module
 
@@ -46,12 +46,22 @@ To use this module, add this to the modules array in the config/config.js
 
 #Configuration options
 The following can be configured
+<table width="100%">
+<thead>
+<tr>
+      <th>Option</th><th width="100%"> Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>brightness</td><td> Choose the text brightness from 1 - 15 (Hexadecimal with 0 being black). (Default = 13)<\td>
+<td>taskNumber</td><td> Number of tasks to get from google. (Default=10)<\td>
+<td>taskMaxLength</td><td>Number of charicters you want to use before truncating. (Default = 50)<\td>
+<td>updateFrequency</td><td>The number of seconds between checks for updates. (Default = 300)<\td>
+<td>taskList</td><td> Choose the google tasks list you want to get. The default list is called "@default" UNTESTED!<\td>
+ <td>debug</td><td> Choose if you want to litter the console with messages. (Default = false)<\td>
+ <\tr>
+ <\tbody>
+ <\table>
 
-1
 
-2. Only display uncopmpleted tasks
-
-3. Update frequency 
-   default = 300 seconds
-
-4. fade: false
