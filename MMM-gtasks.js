@@ -14,13 +14,12 @@ Module.register("MMM-gtasks",{
 	// Default module config.
 	defaults: {
       name: "MMM-gtasks",
-		text: "Some tasks",
       updateFrequency: 300, //Time in seconds
       brightness: 13, //Content brightness [1-15]
       tasksNumber: 10, //Number of tasks to display
       taskMaxLength: 50, // Maximum number of charicters of the task to display
       taskList: "@default", // The name of the google tasks list to display
-      debug: true, // Add debugging messages.
+      debug: false, // Add debugging messages.
 	},
 
    getScripts: function() {
