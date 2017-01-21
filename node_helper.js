@@ -50,13 +50,15 @@ This function is caled when a socket request to update the task list is given
 
          var listOfTasks = output
 
-         console.log("List of tasks updated");
+         if (payload.message.config.debug) {
+            console.log("List of tasks updated");
+         };
 
          self.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
       };
 
       if (notification === "GOOGLE_TASKS") {
-         if (payload === "Start updater") {
+         if (payload.message === "Start updater") {
 
               if (!this.loaded) {
                  var gtasks = this.googleTasks;
@@ -68,7 +70,9 @@ This function is caled when a socket request to update the task list is given
                    gtasks.updateTasks(gauth, processTasks );
                    },5*60*1000);
                  this.loaded=true;
-                 console.log("Started periodic updater for gtasks");
+                 if (payload.message.config.debug) {
+                   console.log("Started periodic updater for gtasks");
+                   };
                  }
 
          }
