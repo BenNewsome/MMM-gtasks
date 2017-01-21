@@ -50,7 +50,7 @@ This function is caled when a socket request to update the task list is given
             // Shorten long strings
             var maxString = payload.config.taskMaxLength
             if (taskTitle.length > maxString) {
-               taskTitle = taskTitle.substring(1,maxString) + "..."
+               taskTitle = taskTitle.substring(0,maxString) + "..."
                }
 
             // Add checkbox
