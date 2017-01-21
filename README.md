@@ -20,8 +20,11 @@ To use this module, add this to the modules array in the config/config.js
          header: 'To Do',
          position: 'top_left', // This can be any of the regions.
          config: {
-            // See 'Configuration options' for more information. 
-            text: 'To do not loaded yet'
+            brightness: 13, // Value from 1 - 15
+            tasksNumber: 10, // Number of tasks you want to get
+            taskMaxLength: 70, // Character length of tasks before it truncates
+            taskList: "@default", // Untested way of choosing what task list to use
+            debug: false, // Enable this only if you wish lots of logging to consoles.
          },
       },
 ```
