@@ -35,30 +35,50 @@ This function is caled when a socket request to update the task list is given
       var gauth = this.googleTasks.gauth;
 
       function processTasks(rawTasks) {
-         var listOfTasks = [];
-         for (var i = 0; i < rawTasks.length; i++) {
-            var task;
-            var taskTitle = rawTasks[i].title
-            // Shorten long strings
-            var maxString = payload.config.taskMaxLength
-            if (taskTitle.length > maxString) {
-               taskTitle = taskTitle.substring(0,maxString) + "..."
-               }
-
-            // Add checkbox
-            if (rawTasks[i].status=='needsAction'){
-               task = "&#9744 " + taskTitle
-            } else {
-               task = "&#9745 " + taskTitle
-            };
-
-            listOfTasks.push( task );
-         };
-
          if (payload.config.debug) {
-            console.log("List of tasks updated");
-            console.log(listOfTasks);
+            console.log("Got raw tasks for processing: ");
+            console.log(rawTasks);
          };
+         var listOfTasks = [];
+
+         // Check if we got an error
+         if ('errors' in rawTasks) {
+//         if (rawTasks.errors[0].message == "Login Required") {
+            listOfTasks = [
+               "Problem loading tasks.",
+               "Try running the mirror with node serveronly for extra info",
+               "Follow the guide in the readme.md",
+               "Have you downloaded your 'client_sectet.json'?",
+               "Have you ran initialy with node serveronly and followed the link provided?",
+               ]
+         } else {
+            
+            // Update the tasks if no error.
+   
+            for (var i = 0; i < rawTasks.length; i++) {
+               var task;
+               var taskTitle = rawTasks[i].title
+               // Shorten long strings
+               var maxString = payload.config.taskMaxLength
+               if (taskTitle.length > maxString) {
+                  taskTitle = taskTitle.substring(0,maxString) + "..."
+                  }
+   
+               // Add checkbox
+               if (rawTasks[i].status=='needsAction'){
+                  task = "&#9744 " + taskTitle
+               } else {
+                  task = "&#9745 " + taskTitle
+               };
+   
+               listOfTasks.push( task );
+            };
+   
+            if (payload.config.debug) {
+               console.log("List of tasks updated");
+               console.log(listOfTasks);
+            };
+         }
          self.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
       };
 
@@ -72,7 +92,7 @@ This function is caled when a socket request to update the task list is given
               //Run now so we dont have to wait for the updater.
               gtasks.updateTasks(tasksOptions, processTasks);
               if (payload.config.debug) {
-                  consile.log("Sent a task update on request")
+                  console.log("Sent a task update on request")
               }
 
               // If updater not loaded, start the updater.
