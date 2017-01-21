@@ -62,8 +62,10 @@ Module.register("MMM-gtasks",{
    // Overide default socket recived notifiaciton.
    socketNotificationReceived: function(notification, payload) {
       if ( notification === "GOOGLE_TASKS") {
-         console.log("Recived socekt notification with payload:");
-         console.log(payload);
+         if (this.config.debug) {
+            console.log("Recived socekt notification with payload:");
+            console.log(payload);
+         };
 
          this.listOfTasks = payload;
 
@@ -80,12 +82,16 @@ Module.register("MMM-gtasks",{
 
 	// Override dom generator.
 	getDom: function() {
-      console.log("Updating DOM");
+      // Make a loading task if no tasks exist.
       if (this.listOfTasks == undefined) {
          console.log("Recived undefined listOfTasks");
          this.listOfTasks = [{title: 'Loading', status: 'needsAction'}];
       };
-      console.log(this.listOfTasks);
+      // debugging
+      if (this.config.debug) {
+         console.log("Updating DOM");
+         console.log(this.listOfTasks);
+         };
       var wrapper = document.createElement("div");
       var table = document.createElement("table");
       table.className = "gtask small";
