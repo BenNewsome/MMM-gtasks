@@ -44,9 +44,16 @@ This function is caled when a socket request to update the task list is given
       function processTasks(rawTasks) {
          var listOfTasks = [];
          for (var i = 0; i < rawTasks.length; i++) {
-            var item = rawTasks[i];
-            var formattedItem = {title:item.title, status:item.status};
-            listOfTasks.push(formattedItem)
+//            var task = rawTasks[i].title;
+            var task;
+
+            if (rawTasks[i].status=='needsAction'){
+               task = "&#9744 " + rawTasks[i].title
+            } else {
+               task = "&#9745 " + rawTasks[i].title
+            };
+
+            listOfTasks.push( task );
             }
 
          if (payload.config.debug) {

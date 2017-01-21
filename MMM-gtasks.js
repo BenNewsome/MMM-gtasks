@@ -85,7 +85,8 @@ Module.register("MMM-gtasks",{
       // Make a loading task if no tasks exist.
       if (this.listOfTasks == undefined) {
          console.log("Recived undefined listOfTasks");
-         this.listOfTasks = [{title: 'Loading', status: 'needsAction'}];
+//         this.listOfTasks = [{title: 'Loading', status: 'needsAction'}];
+           this.listOfTasks = ["&#9744 Loading"]
       };
       // debugging
       if (this.config.debug) {
@@ -101,14 +102,14 @@ Module.register("MMM-gtasks",{
          table.appendChild(row)
 
          var task = document.createElement("td");
-         task.className = "task";
-         if (taskItem.status=='needsAction') {
-            statusHTML = "&#9744 "
-         } else {
-            statusHTML = "&#9745 "
-         };
-         taskTitleHTML = taskItem.title;
-         task.innerHTML = statusHTML + taskTitleHTML;
+//         task.className = "task";
+//         if (taskItem.status=='needsAction') {
+//            statusHTML = "&#9744 "
+//         } else {
+//            statusHTML = "&#9745 "
+//         };
+//         taskTitleHTML = taskItem.title;
+         task.innerHTML = taskItem;
          row.appendChild(task);
       }
       wrapper.appendChild(table);
