@@ -39,23 +39,22 @@ This function is caled when a socket request to update the task list is given
 
       var self = this;
       var gauth = this.googleTasks.gauth;
+
+
       function processTasks(rawTasks) {
-         var output = [];
-      
+         var listOfTasks = [];
          for (var i = 0; i < rawTasks.length; i++) {
             var item = rawTasks[i];
             var formattedItem = {title:item.title, status:item.status};
-            output.push(formattedItem)
+            listOfTasks.push(formattedItem)
             }
-
-         var listOfTasks = output
 
          if (payload.config.debug) {
             console.log("List of tasks updated");
          };
-
          self.sendSocketNotification("GOOGLE_TASKS", listOfTasks);
       };
+
 
       if (notification === "GOOGLE_TASKS") {
          if (payload.message === "Start updater") {
