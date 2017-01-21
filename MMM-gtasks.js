@@ -20,6 +20,7 @@ Module.register("MMM-gtasks",{
       taskNumber: 10, //Number of tasks to display
       taskMaxLength: 100, // Maximum number of charicters of the task to display
       taskList: "Default List", // The name of the google tasks list to display
+      debug: true, // Add debugging messages.
 
 
    
@@ -50,9 +51,11 @@ Module.register("MMM-gtasks",{
 //      };
 //
 //      GoogleTasks.getGoogleAuth(SECRET_FOLDER, storeGAuth);
+
+      var payload = {message: "Start updater", config: this.config}
       
 
-      this.sendSocketNotification("GOOGLE_TASKS", "Start updater");
+      this.sendSocketNotification("GOOGLE_TASKS", payload);
    },
 
 
